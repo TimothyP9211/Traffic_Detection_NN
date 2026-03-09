@@ -14,7 +14,6 @@ out_root = Path("dataset_ready")
 train_ratio = 0.8
 val_ratio = 0.2
 random.seed(42)
-
 valid_exts = {".png", ".jpg", ".jpeg", ".bmp", ".webp"}
 
 # =========================
@@ -50,7 +49,7 @@ for split in ["train", "val", "test"]:
     (out_root / split).mkdir(parents=True, exist_ok=True)
 
 # =========================
-# Build train/val from DATA
+# Build train/val from data/DATA
 # =========================
 for class_dir in get_class_dirs(data_dir):
     class_name = class_dir.name
@@ -78,7 +77,7 @@ for class_dir in get_class_dirs(data_dir):
     print(f"DATA class {class_name}: total={n}, train={len(train_files)}, val={len(val_files)}")
 
 # =========================
-# Build test from TEST
+# Build test from data/TEST
 # =========================
 for class_dir in get_class_dirs(test_dir):
     class_name = class_dir.name
@@ -92,7 +91,7 @@ for class_dir in get_class_dirs(test_dir):
     print(f"TEST class {class_name}: total={len(images)} copied")
 
 # =========================
-# Copy CSV if present
+# Copy CSV if exists
 # =========================
 if csv_file.exists():
     shutil.copy2(csv_file, out_root / csv_file.name)
@@ -100,4 +99,4 @@ if csv_file.exists():
 else:
     print(f"Warning: CSV file not found: {csv_file}")
 
-print(f"\nDone. New dataset created at: {out_root.resolve()}")
+print(f"\nNew dataset created at: {out_root.resolve()}")
