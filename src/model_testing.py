@@ -27,9 +27,14 @@ print("Confidence:", float(result.probs.top1conf))
 # ================ #
 
 # test the detection model on a sample image
-final_detector = YOLO("runs/detect/train/weights/best.pt")
+final_detector = YOLO("runs/detect/train4/weights/best.pt")
 results = final_detector("gostraight_21_test_sign.png", conf=0.25)
-for r in results:
+for i, r in enumerate(results):
     print("Boxes:", r.boxes.xyxy)
     print("Confidences:", r.boxes.conf)
     print("Classes:", r.boxes.cls)
+
+    # draw bounding boxes on the image and save it
+    if i == 0:
+        file = r.save(filename=str("output_detect/detector_output.png"))
+        print("image saved to:", file)
