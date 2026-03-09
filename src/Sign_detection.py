@@ -1,15 +1,14 @@
 import csv
 from ultralytics import YOLO
 
-
 # load the pre-trained YOLOv8n classification model
 model = YOLO("yolov8n-cls.pt")  
 
 # train the model using the specified dataset and parameters
-model.train(data="dataset_ready", epochs=30, imgsz=256)  
+model.train(data="classify_dataset", epochs=30, imgsz=256)  
 
 # evaluate the model on the test set
-metrics = model.val(data="dataset_ready", split="test")
+metrics = model.val(data="classify_dataset", split="test")
 print(metrics)
 
 # ============== #
@@ -18,7 +17,7 @@ print(metrics)
 
 # load sign class names from CSV file
 id_to_name = {}
-with open("dataset_ready/ds1_labels.csv", newline='', encoding='utf8') as f:
+with open("classify_dataset/ds1_labels.csv", newline='', encoding='utf8') as f:
     reader = csv.DictReader(f)
     for row in reader:
         id_to_name[str(row["ClassId"])] = row["Name"]
