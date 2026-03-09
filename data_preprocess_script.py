@@ -14,7 +14,7 @@ out_root = Path("dataset_ready")
 train_ratio = 0.8
 val_ratio = 0.2
 random.seed(42)
-valid_exts = {".png", ".jpg", ".jpeg", ".bmp", ".webp"}
+exts = {".png", ".jpg", ".jpeg", ".bmp", ".webp"}
 
 # =========================
 # Checks
@@ -35,7 +35,7 @@ def get_class_dirs(parent: Path):
 
 def get_images(folder: Path):
     """Return image files in a folder."""
-    return sorted([p for p in folder.iterdir() if p.suffix.lower() in valid_exts])
+    return sorted([p for p in folder.iterdir() if p.suffix.lower() in exts])
 
 def copy_files(files, dst_dir: Path):
     dst_dir.mkdir(parents=True, exist_ok=True)

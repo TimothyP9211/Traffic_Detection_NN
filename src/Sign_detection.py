@@ -1,6 +1,7 @@
 import csv
 from ultralytics import YOLO
 
+
 # load the pre-trained YOLOv8n classification model
 model = YOLO("yolov8n-cls.pt")  
 
@@ -11,6 +12,10 @@ model.train(data="dataset_ready", epochs=30, imgsz=256)
 metrics = model.val(data="dataset_ready", split="test")
 print(metrics)
 
+# ============== #
+# TESTING #
+# ============== #
+
 # load sign class names from CSV file
 id_to_name = {}
 with open("dataset_ready/ds1_labels.csv", newline='', encoding='utf8') as f:
@@ -20,7 +25,7 @@ with open("dataset_ready/ds1_labels.csv", newline='', encoding='utf8') as f:
 
 # test the model on a sample image
 final_model = YOLO("runs/classify/train/weights/best.pt")
-results = final_model("test_sign.png")
+results = final_model("gostraight_21_test_sign.png")
 result = results[0]
 
 pred_idx = result.probs.top1
