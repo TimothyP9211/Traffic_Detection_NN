@@ -1,5 +1,8 @@
 import csv
+from os import listdir
 from ultralytics import YOLO
+
+CLASS_NUM = 1
 
 # ================== #
 # TESTING CLASSIFIER 
@@ -14,13 +17,21 @@ with open("classify_dataset/ds1_labels.csv", newline='', encoding='utf8') as f:
 
 # test the classification model on a sample image
 final_classifier = YOLO("runs/classify/train/weights/best.pt")
-results = final_classifier("gostraight_21_test_sign.png")
-result = results[0]
 
-pred_idx = result.probs.top1
-pred_label = result.names[pred_idx]
-print("Predicted:", id_to_name[pred_label])
-print("Confidence:", float(result.probs.top1conf))
+data_set = []
+for sign_class in range(CLASS_NUM):
+    test_signs = listdir("./data/TEST/{}".format(sign_class))
+    for sign_file in test_signs:
+        path = "./data/TEST/{}/{}".format(sign_class,sign_file)
+        data_set.append(path)
+
+for curr_path in data_set:
+    results = final_classifier(curr_path)
+    result = results[0]
+    pred_idx = result.probs.top1
+    pred_label = result.names[pred_idx]
+    print("Predicted:", id_to_name[pred_label])
+    print("Confidence:", float(result.probs.top1conf))
 
 # ================ #
 # TESTING DETECTOR 
@@ -38,3 +49,4 @@ for i, r in enumerate(results):
     if i == 0:
         file = r.save(filename=str("output_detect/detector_output.png"))
         print("image saved to:", file)
+
