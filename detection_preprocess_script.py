@@ -14,9 +14,6 @@ val_ratio = 0.2
 random.seed(100)
 exts = {".png", ".jpg", ".jpeg", ".bmp", ".webp"}
 
-# =========================
-# Checks
-# =========================
 assert data_dir.exists(), f"Missing folder: {data_dir}"
 assert test_dir.exists(), f"Missing folder: {test_dir}"
 assert abs(train_ratio + val_ratio - 1.0) < 1e-9, "train_ratio + val_ratio must equal 1"
@@ -38,7 +35,6 @@ def prepare_split_dirs(base: Path, split: str):
     (base / "labels" / split).mkdir(parents=True, exist_ok=True)
 
 def safe_unique_name(class_name: str, img_path: Path) -> str:
-    # avoids filename collisions across classes
     return f"{class_name}_{img_path.stem}{img_path.suffix.lower()}"
 
 def copy_image_and_label(src_img: Path, dst_img: Path, dst_label: Path):
@@ -103,7 +99,7 @@ for class_dir in get_class_dirs(test_dir):
     print(f"TEST class {class_dir.name}: total={len(images)}")
 
 # =========================
-# Write data.yaml
+# Write detect_data.yaml
 # =========================
 yaml_text = f"""path: {out_root.resolve().as_posix()}
 train: images/train

@@ -10,14 +10,11 @@ data_dir = root / "DATA"
 test_dir = root / "TEST"
 csv_file = root / "ds1_labels.csv"  
 out_root = Path("classify_dataset") 
-train_ratio = 0.8
-val_ratio = 0.2
+train_ratio = 0.8 # percentage of data used to train
+val_ratio = 0.2 # percentage of data used for validation
 random.seed(100)
 exts = {".png", ".jpg", ".jpeg", ".bmp", ".webp"}
 
-# =========================
-# Checks
-# =========================
 assert data_dir.exists(), f"Missing folder: {data_dir}"
 assert test_dir.exists(), f"Missing folder: {test_dir}"
 assert abs(train_ratio + val_ratio - 1.0) < 1e-9, "train_ratio + val_ratio must equal 1"
@@ -47,9 +44,9 @@ def copy_files(files, dst_dir: Path):
 for split in ["train", "val", "test"]:
     (out_root / split).mkdir(parents=True, exist_ok=True)
 
-# =========================
+# ==============================
 # Build train/val from data/DATA
-# =========================
+# ===========================
 for class_dir in get_class_dirs(data_dir):
     class_name = class_dir.name
     images = get_images(class_dir)
