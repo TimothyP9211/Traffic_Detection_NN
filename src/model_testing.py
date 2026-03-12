@@ -55,7 +55,7 @@ print("=====================================")
 # TESTING DETECTOR 
 # ================ #
 
-# test the detection model on a sample image
+# test the detection model on a collection of test images
 final_detector = YOLO("runs/detect/train4/weights/best.pt")
 
 detect_dataset = []
@@ -67,7 +67,7 @@ for sign_class in range(DETECT_NUM):
 
 n = 0
 for path in detect_dataset:
-    results = final_detector(path, conf=0.25)
+    results = final_detector(path, conf=0.99)
     for i, r in enumerate(results):
         # draw bounding boxes on the image and save it
         if i == 0:

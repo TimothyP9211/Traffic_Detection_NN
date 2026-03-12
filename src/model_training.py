@@ -1,10 +1,10 @@
 from ultralytics import YOLO
 
 # classifier and detector training parameters
-CLASS_EPOCHS = 30
+CLASS_EPOCHS = 20
 CLASS_IMGSZ = 256
 DETECT_EPOCHS = 20
-DETECT_IMGSZ = 640
+DETECT_IMGSZ = 656
 
 # load the pre-trained YOLOv8n classification model
 classifier = YOLO("yolov8n-cls.pt")  
@@ -19,3 +19,4 @@ classifier_metrics = classifier.val(data="classify_dataset", split="test")
 detector_metrics = detector.val(data="detect_dataset/detect_data.yaml", split="test")
 print(classifier_metrics)
 print(detector_metrics)
+
