@@ -1,4 +1,6 @@
 import csv
+import os
+import cv2
 from os import listdir
 from ultralytics import YOLO
 
@@ -55,23 +57,23 @@ print("=====================================")
 # TESTING DETECTOR 
 # ================ #
 
-# test the detection model on a sample image
-final_detector = YOLO("runs/detect/train4/weights/best.pt")
+# test the detection model on a sample image (change train to the appropriate run)
+final_detector = YOLO("runs/detect/train11/weights/best.pt")
 
+dataset_path = "./detect_dataset/images/test"
 detect_dataset = []
-for sign_class in range(DETECT_NUM):
-    test_signs = listdir("./data/TEST/{}".format(sign_class))
-    for sign_file in test_signs:
-        path = "./data/TEST/{}/{}".format(sign_class, sign_file)
+for fname in listdir(dataset_path):
+    path = os.path.join(dataset_path, fname)
+    if os.path.isfile(path):
         detect_dataset.append(path)
 
-n = 0
-for path in detect_dataset:
+# run detector and save images with drawn bounding boxes
+for i, path in enumerate(detect_dataset):
     results = final_detector(path, conf=0.25)
-    for i, r in enumerate(results):
-        # draw bounding boxes on the image and save it
-        if i == 0:
-            file = r.save(filename=str("output_detect/" + str(n) + ".png"))
-            n += 1
-            print("image saved to:", file)
+    r = results[0]
+    annotated = r.plot()
 
+    # save output image with boxes drawn
+    out_path = os.path.join("output_detect", f"{i}.png")
+    cv2.imwrite(out_path, annotated)
+    print("image saved to:", out_path)
