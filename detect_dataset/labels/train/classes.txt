@@ -1,1 +1,5 @@
-sign
+White speed sign
+Stop sign
+Pedestrain crossing
+Parking sign
+Red speed sign
