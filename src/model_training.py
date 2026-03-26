@@ -12,7 +12,7 @@ detector = YOLO("yolov8n.pt")
 
 # # train the classifier with built-in augmentation
 # classifier.train(
-#     data="Data/classify_dataset",
+#     data="classify_dataset",
 #     epochs=CLASS_EPOCHS,
 #     imgsz=CLASS_IMGSZ,
 #     hsv_h=0.015,
@@ -25,7 +25,7 @@ detector = YOLO("yolov8n.pt")
 
 # train the detector with augmentation
 detector.train(
-    data="Data/detect_dataset/detect_data.yaml",
+    data="detect_dataset/detect_data.yaml",
     epochs=DETECT_EPOCHS,
     imgsz=DETECT_IMGSZ,
     hsv_h=0.015,

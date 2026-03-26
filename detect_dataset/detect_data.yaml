@@ -1,0 +1,11 @@
+path: ./detect_dataset
+train: images/train
+val: images/val
+test: images/test
+
+names:
+  0: White speed sign
+  1: Stop sign
+  2: Pedestrain crossing
+  3: Parking sign
+  4: Red speed sign
