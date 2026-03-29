@@ -20,7 +20,7 @@ with open("classify_dataset/labels.csv", newline='', encoding='utf8') as f:
         id_to_name[str(row["ClassId"])] = row["Name"]
 
 # test the classification model on a sample image
-final_classifier = YOLO("runs/classify/train4/weights/best.pt")
+final_classifier = YOLO("runs/classify/train5/weights/best.pt")
 
 total_predictions = 0
 class_data_set = []
