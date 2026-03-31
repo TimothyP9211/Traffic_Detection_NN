@@ -6,7 +6,7 @@ import numpy as np
 from os import listdir
 from ultralytics import YOLO
 
-CLASS_NUM = 6
+CLASS_NUM = 7
 
 # ================== #
 # TESTING CLASSIFIER   
@@ -20,7 +20,7 @@ with open("classify_dataset/labels.csv", newline='', encoding='utf8') as f:
         id_to_name[str(row["ClassId"])] = row["Name"]
 
 # test the classification model on a sample image
-final_classifier = YOLO("runs/classify/train5/weights/best.pt")
+final_classifier = YOLO("runs/classify/train6/weights/best.pt")
 
 total_predictions = 0
 class_data_set = []
@@ -67,14 +67,6 @@ for curr_path, true_class in class_data_set:
         per_class[true_class]['fn'] += 1
         per_class[pred_class]['fp'] += 1
 
-print("\n" + "=" * 60)
-print("CLASSIFICATION RESULTS")
-print("=" * 60)
-print("Total predictions:", total_predictions)
-print("Correct predictions:", correct_predictions)
-print("Incorrect predictions:", incorrect_predictions)
-print("Accuracy:", correct_predictions / total_predictions if total_predictions > 0 else 0)
-
 # Per-class metrics
 print(f"\n{'Class':>6} {'Name':<30} {'Prec':>6} {'Rec':>6} {'F1':>6}")
 print("-" * 60)
@@ -106,7 +98,7 @@ print("\nConfusion matrix saved to confusion_matrix.csv")
 # ================ #
 
 # test the detection model on a sample image (change train to the appropriate run)
-final_detector = YOLO("runs/detect/train12/weights/best.pt")
+final_detector = YOLO("runs/detect/train13/weights/best.pt")
 
 dataset_path = "./detect_dataset/images/test"
 detect_dataset = []
@@ -125,3 +117,11 @@ for i, path in enumerate(detect_dataset):
     out_path = os.path.join("Output/output_detect", f"{i}.png")
     cv2.imwrite(out_path, annotated)
     print("image saved to:", out_path)
+
+print("\n" + "=" * 60)
+print("CLASSIFICATION RESULTS")
+print("=" * 60)
+print("Total predictions:", total_predictions)
+print("Correct predictions:", correct_predictions)
+print("Incorrect predictions:", incorrect_predictions)
+print("Accuracy:", correct_predictions / total_predictions if total_predictions > 0 else 0)
