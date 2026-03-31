@@ -10,18 +10,18 @@ DETECT_IMGSZ = 640
 classifier = YOLO("yolov8n-cls.pt")
 detector = YOLO("yolov8n.pt")
 
-# train the classifier with built-in augmentation
-classifier.train(
-    data="classify_dataset",
-    epochs=CLASS_EPOCHS,
-    imgsz=CLASS_IMGSZ,
-    hsv_h=0.015,
-    hsv_s=0.7,
-    hsv_v=0.4,
-    translate=0.1,
-    scale=0.5,
-    erasing=0.3,
-)
+# # train the classifier with built-in augmentation
+# classifier.train(
+#     data="classify_dataset",
+#     epochs=CLASS_EPOCHS,
+#     imgsz=CLASS_IMGSZ,
+#     hsv_h=0.015,
+#     hsv_s=0.7,
+#     hsv_v=0.4,
+#     translate=0.1,
+#     scale=0.5,
+#     erasing=0.3,
+# )
 
 # train the detector with augmentation
 detector.train(
